@@ -10,7 +10,7 @@ all: ${EXEC}
 
 ${EXEC}: ${OBJS}
 	@echo -e "\033[1;33m\tC O M P I L I N G   P R O G\033[0m"
-	@${CC} -g -o ${EXEC} ${OBJS} -pthread && \
+	@${CC} -g -o ${EXEC} ${OBJS}&& \
 		(echo -e "\033[1;32m\t\t✅ $< \033\033[0m\n")
 
 clean:
