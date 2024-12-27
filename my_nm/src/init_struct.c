@@ -27,11 +27,13 @@ void init_mmap(t_data *data, char *file)
         exit(1);
     if (S_ISDIR(s.st_mode))
         exit(1);
-    data->file_data = mmap(NULL, s.st_size, PROT_READ, MAP_PRIVATE, data->fd, 0);
+    data->file_data = mmap(NULL, s.st_size, PROT_READ,
+        MAP_PRIVATE, data->fd, 0);
     data->size_mmap = s.st_size;
 }
 
-void init_data(t_data *data) {
+void init_data(t_data *data)
+{
     Elf64_Ehdr *elf = (Elf64_Ehdr *)data->file_data;
 
     data->sections = (Elf64_Shdr *)(data->file_data + elf->e_shoff);

@@ -7,10 +7,10 @@
 
 #include "../include/my.h"
 
-static Elf64_Shdr *find_section(t_data *data, char *target_name)
+static Elf64_Shdr *find_section(t_data *data, char *name)
 {
     for (int i = 0; i < data->section_count; i++)
-        if (strcmp(&data->section_names[data->sections[i].sh_name], target_name) == 0)
+        if (strcmp(&data->section_names[data->sections[i].sh_name], name) == 0)
             return &data->sections[i];
     return NULL;
 }
