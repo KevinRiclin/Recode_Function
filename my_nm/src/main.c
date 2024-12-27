@@ -1,11 +1,11 @@
-#include "../include/my.h"
+/*
+** EPITECH PROJECT, 2024
+** my_nm
+** File description:
+** main
+*/
 
-static void init_struct(t_data *data)
-{
-    data->fd = 0;
-    data->size_mmap = 0;
-    data->file_data = NULL;
-}
+#include "../include/my.h"
 
 static void error_handling(int argc, char **argv, t_data *data)
 {
@@ -15,16 +15,16 @@ static void error_handling(int argc, char **argv, t_data *data)
         exit(1);
 }
 
-static void init_mmap(t_data *data, char *file)
+static void choose_bits(t_data *data, char *file)
 {
-    struct stat s;
+    Elf64_Ehdr *elf = (Elf64_Ehdr *)data->file_data;
 
-    if (fstat(data->fd, &s) == -1)
+    if (elf->e_ident[EI_CLASS] == ELFCLASS32)
         exit(1);
-    if (S_ISDIR(s.st_mode))
-        exit(1);
-    data->file_data = mmap(NULL, s.st_size, PROT_READ, MAP_PRIVATE, data->fd, 0);
-    data->size_mmap = s.st_size;
+    if (elf->e_ident[EI_CLASS] == ELFCLASS64) {
+        init_data(&data);
+        new_version(&data, file);
+    }
 }
 
 int main(int argc, char **argv)
@@ -34,6 +34,6 @@ int main(int argc, char **argv)
     init_struct(&data);
     error_handling(argc, argv, &data);
     init_mmap(&data, argv[1]);
-    printf("%s\n", data.file_data);
+    choose_bits(&data, argv[1]);
     return 0;
 }

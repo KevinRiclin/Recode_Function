@@ -1,4 +1,6 @@
 SRC = src/main.c \
+        src/init_struct.c \
+		src/new_bits.c \
 
 CC        = gcc
 
