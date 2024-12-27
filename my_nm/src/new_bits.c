@@ -11,8 +11,8 @@ static Elf64_Shdr *find_section(t_data *data, char *name)
 {
     for (int i = 0; i < data->section_count; i++)
         if (strcmp(&data->section_names[data->sections[i].sh_name], name) == 0)
-            return &data->sections[i];
-    return NULL;
+            return (&data->sections[i]);
+    return (NULL);
 }
 
 static char *get_symbol_type(uint8_t type)
@@ -74,6 +74,7 @@ static void print_symbol_info(Elf64_Sym *sym, t_data *data)
     printf("%s ", get_symbol_visibility(ELF64_ST_VISIBILITY(sym->st_other)));
     printf("%s ", get_section_name(sym, data));
     printf("%s\n", &data->symbol_names[sym->st_name]);
+    return;
 }
 
 static void process_symbols(Elf64_Shdr *symtab, t_data *data)
@@ -83,6 +84,7 @@ static void process_symbols(Elf64_Shdr *symtab, t_data *data)
 
     for (int i = 0; i < num_symbols; i++)
         print_symbol_info(&symbols[i], data);
+    return;
 }
 
 void new_version(t_data *data, char *file)
@@ -92,4 +94,5 @@ void new_version(t_data *data, char *file)
 
     data->symbol_names = (char *)(data->file_data + strtab->sh_offset);
     process_symbols(symtab, data);
+    return;
 }

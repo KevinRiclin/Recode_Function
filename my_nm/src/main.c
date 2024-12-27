@@ -13,6 +13,7 @@ static void error_handling(int argc, char **argv, t_data *data)
         exit(1);
     if ((data->fd = open(argv[1], O_RDONLY)) == -1)
         exit(1);
+    return;
 }
 
 static void choose_bits(t_data *data, char *file)
@@ -25,6 +26,7 @@ static void choose_bits(t_data *data, char *file)
         init_data(&data);
         new_version(&data, file);
     }
+    return;
 }
 
 int main(int argc, char **argv)

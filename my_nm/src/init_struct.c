@@ -17,6 +17,7 @@ void init_struct(t_data *data)
     data->sym_data.sections = NULL;
     data->sym_data.section_count = 0;
     data->sym_data.symbol_names = NULL;
+    return;
 }
 
 void init_mmap(t_data *data, char *file)
@@ -30,6 +31,7 @@ void init_mmap(t_data *data, char *file)
     data->file_data = mmap(NULL, s.st_size, PROT_READ,
         MAP_PRIVATE, data->fd, 0);
     data->size_mmap = s.st_size;
+    return;
 }
 
 void init_data(t_data *data)
@@ -40,4 +42,5 @@ void init_data(t_data *data)
     data->section_names =
         (char *)(data->file_data + data->sections[elf->e_shstrndx].sh_offset);
     data->section_count = elf->e_shnum;
+    return;
 }
